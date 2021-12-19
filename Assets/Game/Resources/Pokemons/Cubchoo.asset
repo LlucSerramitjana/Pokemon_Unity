@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c358256e542b5fc42a3b895fb88c21d8, type: 3}
+  m_Name: Cubchoo
+  m_EditorClassIdentifier: 
+  name: Cubchoo
+  frontSprite: {fileID: 21300000, guid: 4375cf5fcbd636d449e2c28c8812090d, type: 3}
+  backSprite: {fileID: 21300000, guid: 2b475207efc2301479ec9b7ca24cb09b, type: 3}
+  type: 4
+  maxHp: 70
+  attack: 40
+  defense: 60
