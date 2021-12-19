@@ -20,11 +20,13 @@ public class PokemonBase : ScriptableObject
     [SerializeField] int speed; //We need it if we want to calculate maxHp in the same way that the original game does
     
     //Pokemon stored attacks
-    [SerializeField] LearnableMove learnableMove1;
+    //[SerializeField] LearnableMove learnableMove1;
 
-    [SerializeField] LearnableMove learnableMove2;
+    //[SerializeField] LearnableMove learnableMove2;
 
-    [SerializeField] LearnableMove learnableMove3;
+    //[SerializeField] LearnableMove learnableMove3;
+
+    [SerializeField] List<LearnableMove> learnableMoves;
 
     public string Name{
         get { return name; } //How to expose a private variable
@@ -58,17 +60,23 @@ public class PokemonBase : ScriptableObject
     {
         get { return speed; }
     }
-    public LearnableMove Move1
+
+    //public LearnableMove Move1
+    //{
+    //    get { return learnableMove1; }
+    //}
+    //public LearnableMove Move2
+    //{
+    //    get { return learnableMove2; }
+    //}
+    //public LearnableMove Move3
+    //{
+    //    get { return learnableMove3; }
+    //}
+
+    public List<LearnableMove> LearnableMoves
     {
-        get { return learnableMove1; }
-    }
-    public LearnableMove Move2
-    {
-        get { return learnableMove2; }
-    }
-    public LearnableMove Move3
-    {
-        get { return learnableMove3; }
+        get { return learnableMoves; }
     }
 }
 

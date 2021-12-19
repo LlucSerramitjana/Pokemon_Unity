@@ -13,9 +13,18 @@ MonoBehaviour:
   m_Name: Geodude
   m_EditorClassIdentifier: 
   name: Geodude
+  description: 
   frontSprite: {fileID: 21300000, guid: 9b2055d524ae74e458bdb8da9fda9840, type: 3}
   backSprite: {fileID: 21300000, guid: 9b72b9cbc7c3fb74d965eb0b00f47cdf, type: 3}
   type: 5
   maxHp: 40
   attack: 80
   defense: 100
+  speed: 0
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: 682ec67d848177f4bb37e5b474ae1ce0, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 781b05d63f91ee949897fa060446cbba, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 856aacd02c9b1454f9a1d1a907a3c102, type: 2}
+    level: 1

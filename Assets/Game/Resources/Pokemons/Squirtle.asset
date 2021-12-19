@@ -13,9 +13,18 @@ MonoBehaviour:
   m_Name: Squirtle
   m_EditorClassIdentifier: 
   name: Squirtle
+  description: 
   frontSprite: {fileID: 21300000, guid: 818cf159951cf9a4e8e810b2bbab4096, type: 3}
   backSprite: {fileID: 21300000, guid: 18fc6e8e3f72b154fba88f358748be28, type: 3}
   type: 2
   maxHp: 44
   attack: 50
   defense: 65
+  speed: 0
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: 772f7fb4f59051a4abee8a65cdfafac6, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 682ec67d848177f4bb37e5b474ae1ce0, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 781b05d63f91ee949897fa060446cbba, type: 2}
+    level: 1

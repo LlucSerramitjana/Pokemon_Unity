@@ -21,12 +21,10 @@ MonoBehaviour:
   attack: 60
   defense: 50
   speed: 0
-  learnableMove1:
-    moveBase: {fileID: 11400000, guid: 682ec67d848177f4bb37e5b474ae1ce0, type: 2}
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: 772f7fb4f59051a4abee8a65cdfafac6, type: 2}
     level: 1
-  learnableMove2:
-    moveBase: {fileID: 11400000, guid: 825d08644c76f4c499c2283119e72cb1, type: 2}
-    level: 2
-  learnableMove3:
-    moveBase: {fileID: 11400000, guid: 772f7fb4f59051a4abee8a65cdfafac6, type: 2}
+  - moveBase: {fileID: 11400000, guid: 825d08644c76f4c499c2283119e72cb1, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 781b05d63f91ee949897fa060446cbba, type: 2}
     level: 1
