@@ -13,6 +13,7 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] BattleDialogBox dialogBox;
 
     BattleState state;
+    int currentAction;
 
     private void Start() 
     {
@@ -25,7 +26,7 @@ public class BattleSystem : MonoBehaviour
         enemyUnit.Setup();
         enemyHud.SetData(enemyUnit.Pokemon);
 
-        yield return (dialogBox.TypeDialog("A wild " + playerUnit.Pokemon.Base.Name + " appeared!"));
+        yield return (dialogBox.TypeDialog("A wild " + enemyUnit.Pokemon.Base.Name + " appeared!"));
         yield return new WaitForSeconds(1f);
         PlayerAction();
     }
@@ -35,5 +36,15 @@ public class BattleSystem : MonoBehaviour
         state = BattleState.PlayerAction;
         StartCoroutine(dialogBox.TypeDialog("Choose an action"));
         dialogBox.EnableActionSelector(true);
+    }
+    public void Update()
+    {
+        if (state == BattleState.PlayerAction)
+        {
+            HandleActionSelection();
+        }
+    }
+    void HandleActionSelection()
+    {
     }
 }

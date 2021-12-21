@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask grassLayer;
     public LayerMask interactableLayer;
     private bool isMoving;
-    private bool changeSkin;
+    private bool changeSkin; //BBDD serveix per cambiar la skin
 
     private Vector2 input;
 
