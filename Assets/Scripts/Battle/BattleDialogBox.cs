@@ -16,6 +16,7 @@ public class BattleDialogBox : MonoBehaviour
 
     [SerializeField] Text ppText;
     [SerializeField] Text typeText;
+    [SerializeField] Color highlightedColor;
 
     public void SetDialog(string dialog)
     {
@@ -43,5 +44,43 @@ public class BattleDialogBox : MonoBehaviour
     {
         moveSelector.SetActive(enabled);
         moveDetails.SetActive(enabled);
+    }
+    public void UpdateActionSelection(int selectedAction)
+    {
+        for (int i = 0; i < actionTexts.Count; ++i)
+        {
+            if (i == selectedAction)
+            {
+                actionTexts[i].color = highlightedColor;
+            }
+            else
+                actionTexts[i].color = Color.black;
+        }
+    }
+    public void UpdateMoveSelection(int selectedMove, Move move)
+    {
+        for (int i = 0; i < moveTexts.Count; ++i)
+        {
+            if (i == selectedMove)
+            {
+                moveTexts[i].color = highlightedColor;
+            }
+            else
+                moveTexts[i].color = Color.black;
+        }
+        ppText.text = ("PP " + (move.PP) + "/" + (move.Base.PP));
+        typeText.text = move.Base.Type.ToString();
+    }
+    public void SetMoveNames(List<Move> moves)
+    {
+        for (int i = 0; i < moveTexts.Count; ++i)
+        {
+            if (i < moves.Count) //Check if the pokemon has less than 3 moves
+            {
+                moveTexts[i].text = moves[i].Base.Name;
+            }
+            else
+                moveTexts[i].text = "-";
+        }
     }
 }
