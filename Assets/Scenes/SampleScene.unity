@@ -13131,8 +13131,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -87.32999, y: -2.585}
-  m_SizeDelta: {x: 602.69, y: 106.85}
+  m_AnchoredPosition: {x: 5.66, y: 1.2626}
+  m_SizeDelta: {x: 788.67, y: 99.155}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &365029892
 MonoBehaviour:
@@ -19538,6 +19538,9 @@ MonoBehaviour:
   grassLayer:
     serializedVersion: 2
     m_Bits: 512
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!212 &453772059
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19638,8 +19641,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -220, y: -121.18}
-  m_SizeDelta: {x: 200, y: 200}
+  m_AnchoredPosition: {x: -241, y: -112.11}
+  m_SizeDelta: {x: 196.85, y: 176.76}
   m_Pivot: {x: 0.45651665, y: 0.23909569}
 --- !u!114 &492304677
 MonoBehaviour:
@@ -59330,7 +59333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23f4c6adfe0433a4db29492f0574a510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lettersPerSecond: 0
+  lettersPerSecond: 20
   dialogText: {fileID: 365029892}
   actionSelector: {fileID: 1031360285}
   moveSelector: {fileID: 1379102031}
