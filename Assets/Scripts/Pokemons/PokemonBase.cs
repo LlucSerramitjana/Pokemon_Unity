@@ -7,12 +7,12 @@ using UnityEngine.UI;
 
 public class PokemonBase : ScriptableObject
 {
-    [SerializeField] string name;
+    [SerializeField] string name; //BBDD, la resta ja esta dins del unity
     [TextArea]
-    [SerializeField] string description; //Nose si la necessitem pero esta xula
-    [SerializeField] Sprite frontSprite;
-    [SerializeField] Sprite backSprite;
-    [SerializeField] PokemonType type;
+    [SerializeField] string description; //Nose si la necessitem pero esta xula 
+    [SerializeField] Sprite frontSprite; 
+    [SerializeField] Sprite backSprite; 
+    [SerializeField] PokemonType type; 
 
     //Base Stats
     [SerializeField] int maxHp;
@@ -21,12 +21,6 @@ public class PokemonBase : ScriptableObject
     [SerializeField] int speed; //We need it if we want to calculate maxHp in the same way that the original game does
     
     //Pokemon stored attacks
-    //[SerializeField] LearnableMove learnableMove1;
-
-    //[SerializeField] LearnableMove learnableMove2;
-
-    //[SerializeField] LearnableMove learnableMove3;
-
     [SerializeField] List<LearnableMove> learnableMoves;
 
     public string Name{
@@ -61,19 +55,6 @@ public class PokemonBase : ScriptableObject
     {
         get { return speed; }
     }
-
-    //public LearnableMove Move1
-    //{
-    //    get { return learnableMove1; }
-    //}
-    //public LearnableMove Move2
-    //{
-    //    get { return learnableMove2; }
-    //}
-    //public LearnableMove Move3
-    //{
-    //    get { return learnableMove3; }
-    //}
 
     public List<LearnableMove> LearnableMoves
     {

@@ -11,22 +11,13 @@ public class Pokemon
     public int MaxHP { get; set; }
     public List<Move> Moves { get; set; }
 
-    //public Move Move1 { get; set; }
-    //public Move Move2 { get; set; }
-    //public Move Move3 { get; set; }
-
     public Pokemon(PokemonBase pBase, int pLevel)
     {
         Base = pBase;
         Level = pLevel;
         HP = MaxHP;
-
         Moves = new List<Move>();
         
-        //Move1 = Move1;
-        //Move2 = Move2;
-        //Move3 = Move3;
-
         //In our case it is necessary to find another way
         foreach (var move in Base.LearnableMoves)
         {
