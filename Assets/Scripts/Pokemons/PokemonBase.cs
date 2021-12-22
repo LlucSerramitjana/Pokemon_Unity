@@ -12,12 +12,15 @@ public class PokemonBase : ScriptableObject
     [SerializeField] string description; //Nose si la necessitem pero esta xula 
     [SerializeField] Sprite frontSprite; 
     [SerializeField] Sprite backSprite; 
-    [SerializeField] PokemonType type; 
+    [SerializeField] PokemonType type;
+    
 
-    //Base Stats
+    //Base Stats    
     [SerializeField] int maxHp;
     [SerializeField] int attack;
     [SerializeField] int defense;
+    [SerializeField] int spAttack;
+    [SerializeField] int spDefense;
     [SerializeField] int speed; //We need it if we want to calculate maxHp in the same way that the original game does
     
     //Pokemon stored attacks
@@ -55,7 +58,14 @@ public class PokemonBase : ScriptableObject
     {
         get { return speed; }
     }
-
+    public int SpAttack
+    {
+        get { return spAttack; }
+    }
+    public int SpDefense
+    {
+        get { return spDefense; }
+    }
     public List<LearnableMove> LearnableMoves
     {
         get { return learnableMoves; }

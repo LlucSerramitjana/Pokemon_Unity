@@ -20,6 +20,8 @@ MonoBehaviour:
   maxHp: 39
   attack: 60
   defense: 50
+  spAttack: 60
+  spDefense: 50
   speed: 10
   learnableMoves:
   - moveBase: {fileID: 11400000, guid: 772f7fb4f59051a4abee8a65cdfafac6, type: 2}

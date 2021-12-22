@@ -62,12 +62,14 @@ public class BattleSystem : MonoBehaviour
     public IEnumerator PerformPlayerMove()
     {
         state = BattleState.Busy;
-        var move = playerUnit.Pokemon.Moves[currentMove];
-        yield return dialogBox.TypeDialog($"{playerUnit.Pokemon.Base.Name} used {move.Base.Name}");
+        var move = playerUnit.Pokemon.Moves[currentMove]; 
+        yield return dialogBox.TypeDialog($"{playerUnit.Pokemon.Base.Name} used {move.Base.Name} calc {playerUnit.Pokemon.MaxHP} , {playerUnit.Pokemon.HP}");
         
         yield return new WaitForSeconds(1f);
         bool isFainted = enemyUnit.Pokemon.TakeDamage(move, playerUnit.Pokemon);
-        yield return enemyHud.UpdateHP();
+        yield return dialogBox.TypeDialog($"{isFainted} i la hp es {enemyUnit.Pokemon.MaxHP} , {enemyUnit.Pokemon.HP}");
+        
+        yield return enemyHud.UpdateHP(); //Peta aqui
 
         if (isFainted)
         {
@@ -77,6 +79,7 @@ public class BattleSystem : MonoBehaviour
         {
             StartCoroutine(EnemyMove());
         }
+
 
     }
     public IEnumerator EnemyMove()

@@ -42,11 +42,10 @@ public class Pokemon
     {
         get { return Mathf.FloorToInt((Base.Speed * Level) / 100f) + 5; } //This formula originally uses Speed, do we need it?
     }
-    public int MaxHp
+    public float MaxHp
     {
         get { return Mathf.FloorToInt((Base.Speed * Level) / 100f) + 10; } //This formula originally uses Speed, do we need it?
     }
-
     public bool TakeDamage(Move move, Pokemon attacker)
     {
         float modifiers = Random.Range(0.85f, 1f);
