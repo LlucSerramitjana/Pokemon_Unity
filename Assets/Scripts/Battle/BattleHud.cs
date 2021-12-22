@@ -8,7 +8,7 @@ public class BattleHud : MonoBehaviour
     [SerializeField] Text nameText;
     [SerializeField] Text levelText;
     [SerializeField] HPBar hpBar;
-    Pokemon _pokemon;
+    [SerializeField] Pokemon _pokemon;
 
     public void SetData(Pokemon pokemon)
     {

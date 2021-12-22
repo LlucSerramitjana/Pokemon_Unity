@@ -26,6 +26,10 @@ public class PokemonBase : ScriptableObject
     //Pokemon stored attacks
     [SerializeField] List<LearnableMove> learnableMoves;
 
+    public int getMaxHP()
+    {
+        return maxHp;
+    }
     public string Name{
         get { return name; } //How to expose a private variable
     }

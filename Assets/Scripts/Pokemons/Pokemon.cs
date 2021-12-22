@@ -15,7 +15,8 @@ public class Pokemon
     {
         Base = pBase;
         Level = pLevel;
-        HP = MaxHP;
+        HP = pBase.getMaxHP();
+        MaxHP = pBase.getMaxHP();
         Moves = new List<Move>();
         
         //In our case it is necessary to find another way
@@ -46,6 +47,7 @@ public class Pokemon
     {
         get { return Mathf.FloorToInt((Base.Speed * Level) / 100f) + 10; } //This formula originally uses Speed, do we need it?
     }
+
     public bool TakeDamage(Move move, Pokemon attacker)
     {
         float modifiers = Random.Range(0.85f, 1f);
