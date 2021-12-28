@@ -63,6 +63,7 @@ public class Pokemon
             Fainted = false
 
         };
+        float attack = (move.Base.isSpecial) ? attacker.SpAttack : attacker.Attack; //Volem atacs especials?? 
         float modifiers = Random.Range(0.85f, 1f) * type * critical;
         float a = (2 * attacker.Level + 10) / 250f;
         float d = a * move.Base.Power * ((float)attacker.Attack / Defense) + 2;
