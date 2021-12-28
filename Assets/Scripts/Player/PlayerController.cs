@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private bool isMoving;
     private bool changeSkin; //BBDD serveix per cambiar la skin
 
+    public event Action OnEncountered;
     private Vector2 input;
 
     private Animator animator;
@@ -20,7 +22,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    private void Update()
+    public void HandleUpdate()
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
@@ -100,9 +102,11 @@ public class PlayerController : MonoBehaviour
     {
         if (Physics2D.OverlapCircle(transform.position, 0.2f, grassLayer) != null)
         {
-           if (Random.Range(1, 101) <= 10)
+           if (UnityEngine.Random.Range(1, 101) <= 10)
            {
+               animator.SetBool("isMoving", false);
                Debug.Log("Encountered a wild pokemon");
+               OnEncountered();
            }
         }
     }

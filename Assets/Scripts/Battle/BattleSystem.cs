@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using UnityEngine.UI;
 
 public enum BattleState { Start, PlayerAction, PlayerMove, EnemyMove, Busy }
@@ -16,7 +17,9 @@ public class BattleSystem : MonoBehaviour
     int currentAction; //Player selects action = 0 if player selects run = 1
     int currentMove;
 
-    private void Start() 
+    public event Action<bool> onBattleOver;
+
+    public void StartBattle() 
     {
         StartCoroutine(SetupBattle());
     }
@@ -40,7 +43,7 @@ public class BattleSystem : MonoBehaviour
         StartCoroutine(dialogBox.TypeDialog("Choose an action"));
         dialogBox.EnableActionSelector(true);
     }
-    public void Update()
+    public void HandleUpdate()
     {
         if (state == BattleState.PlayerAction)
         {
@@ -76,6 +79,7 @@ public class BattleSystem : MonoBehaviour
         if (damageDetails.Fainted)
         {
             yield return dialogBox.TypeDialog((enemyUnit.Pokemon.Base.Name) + " fainted");
+            onBattleOver(true);
         }
         else
         {
@@ -100,6 +104,7 @@ public class BattleSystem : MonoBehaviour
         if (damageDetails.Fainted)
         {
             yield return dialogBox.TypeDialog((playerUnit.Pokemon.Base.Name) + " fainted");
+            onBattleOver(false);
         }
         else
         {
