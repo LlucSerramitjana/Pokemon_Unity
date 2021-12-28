@@ -102,3 +102,25 @@ public enum PokemonType
     Rock,
     None
 }
+
+public class TypeChart
+{
+    float[][] chart = 
+    {
+        //                   NOR  FIR WAT GRS ICE RCK
+        /*NOR*/ new float[] { 1f, 1f, 1f, 1f, 1f, 1f }, //none
+        /*FIR*/ new float[] { 1f, 1f, 1f, 2f, 2f, 1f }, //ice, grass
+        /*WAT*/ new float[] { 1f, 2f, 1f, 1f, 1f, 2f }, //rock, fire
+        /*GRS*/ new float[] { 1f, 1f, 2f, 1f, 1f, 2f }, //water, rock
+        /*ICE*/ new float[] { 1f, 1f, 2f, 2f, 1f, 1f }, //water, grass
+        /*RCK*/ new float[] { 1f, 2f, 1f, 1f, 2f, 1f }  //ice, fire
+    };
+    public static float GetEffectiveness(PokemonType attackType, PokemonType defenseType)
+    {
+        if (attackType == PokemonType.None || defenseType == PokemonType.None)
+            return 1;
+        int row = (int)attackType -1;
+        int col = (int)defenseType -1;
+        return chart[row][col];
+    }
+}
