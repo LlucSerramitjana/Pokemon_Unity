@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Pokemon
 {
-    float type = TypeChart.GetEffectiveness(move.Base.Type, this.Base.Type);
     public PokemonBase Base { get; set; }
     public int Level { get; set; }
     public int HP { get; set; } //We'll import 3 possible attacks for the pokemon saved in a list to make it easier to code
@@ -49,20 +48,21 @@ public class Pokemon
         get { return Mathf.FloorToInt((Base.Speed * Level) / 100f) + 10; } //This formula originally uses Speed, do we need it?
     }
 
-    public bool TakeDamage(Move move, Pokemon attacker)
+    public DamageDetails TakeDamage(Move move, Pokemon attacker)
     {
+        
         float critical = 1f;
         if (Random.value * 100f <= 6.25f)
             critical = 2f;
 
-        float type = TypeChart.GetEffectiveness(move.Base.Type, this.Base.Type);
-        var damageDetails = new DamageDetails(){
-            Type = type,
+        float type = TypeChart.GetEffectiveness(move.Base.Type, this.Base.Type) * 2; //Si tinguesim 2 clases s'ha de posar aqui
+        var damageDetails = new DamageDetails()
+        {
+            TypeEffectiveness = type,
             Critical = critical,
             Fainted = false
-            
+
         };
-        
         float modifiers = Random.Range(0.85f, 1f) * type * critical;
         float a = (2 * attacker.Level + 10) / 250f;
         float d = a * move.Base.Power * ((float)attacker.Attack / Defense) + 2;
@@ -74,8 +74,7 @@ public class Pokemon
             HP = 0;
             damageDetails.Fainted = true;
         }
-        else
-            return damageDetails;
+        return damageDetails;
     }
 
     public Move GetRandomMove()
@@ -88,6 +87,6 @@ public class Pokemon
 public class DamageDetails
 {
     public bool Fainted { get; set; }
-    public bool Critical { get; set; }
-    public bool Type { get; set; }
+    public float Critical { get; set; }
+    public float TypeEffectiveness { get; set; }
 }

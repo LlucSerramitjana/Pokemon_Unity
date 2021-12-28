@@ -94,18 +94,18 @@ public class LearnableMove
 
 public enum PokemonType
 {
+    None,
     Normal,
     Fire,
     Water,
     Grass,
     Ice,
     Rock,
-    None
 }
 
 public class TypeChart
 {
-    float[][] chart = 
+    static float[][] chart = 
     {
         //                   NOR  FIR WAT GRS ICE RCK
         /*NOR*/ new float[] { 1f, 1f, 1f, 1f, 1f, 1f }, //none
