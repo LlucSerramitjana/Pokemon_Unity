@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BattleHud : MonoBehaviour
+public class PartyMemberUI : MonoBehaviour
 {
     [SerializeField] Text nameText;
     [SerializeField] Text levelText;
@@ -17,12 +17,5 @@ public class BattleHud : MonoBehaviour
         _pokemon = pokemon;
         float calc = (float)pokemon.HP / pokemon.MaxHP;
         hpBar.SetHP(calc);
-    }
-    public IEnumerator UpdateHP()
-    {
-        float calc = (float) _pokemon.HP / _pokemon.MaxHP;
-
-        yield return hpBar.SetHPSmooth(calc);
-
     }
 }

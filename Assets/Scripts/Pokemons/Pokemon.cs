@@ -3,20 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Serializable]
 public class Pokemon
 {
-    public PokemonBase Base { get; set; }
-    public int Level { get; set; }
+    [SerializeField] PokemonBase _base;
+    [SerializeField] int level;
+
+    public PokemonBase Base {
+        get { return _base; }
+    }
+    public int Level {
+        get { return level; }
+    }
+
     public int HP { get; set; } //We'll import 3 possible attacks for the pokemon saved in a list to make it easier to code
     public int MaxHP { get; set; }
     public List<Move> Moves { get; set; }
 
-    public Pokemon(PokemonBase pBase, int pLevel)
+    public void Init()
     {
-        Base = pBase;
-        Level = pLevel;
-        HP = pBase.getMaxHP();
-        MaxHP = pBase.getMaxHP();
+        HP = _base.getMaxHP();
+        MaxHP = _base.getMaxHP();
         Moves = new List<Move>();
         
         //In our case it is necessary to find another way
@@ -63,7 +70,7 @@ public class Pokemon
             Fainted = false
 
         };
-        float attack = (move.Base.isSpecial) ? attacker.SpAttack : attacker.Attack; //Volem atacs especials?? 
+        //float attack = (move.Base.isSpecial) ? attacker.SpAttack : attacker.Attack; //Volem atacs especials?? 
         float modifiers = Random.Range(0.85f, 1f) * type * critical;
         float a = (2 * attacker.Level + 10) / 250f;
         float d = a * move.Base.Power * ((float)attacker.Attack / Defense) + 2;
