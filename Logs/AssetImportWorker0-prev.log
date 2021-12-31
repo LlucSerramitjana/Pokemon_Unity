@@ -1689,3 +1689,28 @@ AssetImportParameters requested are different than current active one (requested
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 245.018165 seconds.
+  path: Assets/Scripts/Battle/PartyScreen.cs
+  artifactKey: Guid(45320528f6a939f488dc668e2bb473e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Battle/PartyScreen.cs using Guid(45320528f6a939f488dc668e2bb473e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '56c415ae741fbf6295597809eeb43010') in 0.014941 seconds 
+  Import took 0.024078 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 659.889713 seconds.
+  path: Assets/Scripts/Battle/PartyScreen.cs
+  artifactKey: Guid(45320528f6a939f488dc668e2bb473e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Battle/PartyScreen.cs using Guid(45320528f6a939f488dc668e2bb473e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a11b9af2068aa53b605540e1f1772ad6') in 0.014716 seconds 
+  Import took 0.027034 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 26.784286 seconds.
+  path: Assets/Scripts/Battle/PartyScreen.cs
+  artifactKey: Guid(45320528f6a939f488dc668e2bb473e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Battle/PartyScreen.cs using Guid(45320528f6a939f488dc668e2bb473e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'afe9b87c853946c2b886149bf2c8e68e') in 0.013621 seconds 
+  Import took 0.027293 seconds .
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
