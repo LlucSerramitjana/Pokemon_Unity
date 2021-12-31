@@ -7,7 +7,17 @@ using DG.Tweening;
 public class BattleUnit : MonoBehaviour
 {
     [SerializeField] bool isPlayerUnit; //To know if it is a player or an enemy
+    [SerializeField] BattleHud hud;
 
+    public bool IsPlayerUnit
+    {
+        get { return isPlayerUnit; }
+    }
+
+    public BattleHud Hud
+    {
+        get { return hud; }
+    }
     public Pokemon Pokemon { get; set; }
     Image image;
     Vector3 originalPos;
@@ -27,6 +37,7 @@ public class BattleUnit : MonoBehaviour
         else
             image.sprite = Pokemon.Base.FrontSprite;
 
+        hud.SetData(pokemon);
         PlayEnterAnimation();
     }
     public void PlayEnterAnimation()
