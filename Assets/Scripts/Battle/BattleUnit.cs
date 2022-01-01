@@ -38,6 +38,7 @@ public class BattleUnit : MonoBehaviour
             image.sprite = Pokemon.Base.FrontSprite;
 
         hud.SetData(pokemon);
+        hud.gameObject.SetActive(true);
         PlayEnterAnimation();
     }
     public void PlayEnterAnimation()
@@ -81,5 +82,10 @@ public class BattleUnit : MonoBehaviour
         var sequence = DOTween.Sequence();
         sequence.Append(image.transform.DOLocalMoveY(originalPos.y -150f, 0.5f));
         sequence.Join(image.DOFade(0f, 0.5f)); //to make it invisible
+    }
+
+    public void Clear()
+    {
+        hud.gameObject.SetActive(false);
     }
 }
