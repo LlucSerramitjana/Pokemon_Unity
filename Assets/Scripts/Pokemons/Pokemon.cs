@@ -19,6 +19,7 @@ public class Pokemon
     public int HP { get; set; } //We'll import 3 possible attacks for the pokemon saved in a list to make it easier to code
     public int MaxHP { get; set; }
     public List<Move> Moves { get; set; }
+    public Move CurrentMove { get; set; }
 
     public void Init()
     {

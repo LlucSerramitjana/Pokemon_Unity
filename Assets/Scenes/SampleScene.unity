@@ -13045,6 +13045,10 @@ MonoBehaviour:
   dialog:
     lines:
     - My pokemons are strong. Let me show you!
+  dialogAfter:
+    lines:
+    - I will train harder and beat you one day!
+  fovLayer: {fileID: 898392817}
 --- !u!61 &202155281
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13151,7 +13155,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 202155279}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.5, y: 3.8, z: 0}
+  m_LocalPosition: {x: 17.6, y: -1.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 898392818}
@@ -19975,11 +19979,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pokemons:
   - _base: {fileID: 11400000, guid: 33a36f64ecee4854da417691ba7a1bce, type: 2}
-    level: 3
+    level: 15
   - _base: {fileID: 11400000, guid: 9219f068debbafb44bc54dd012c0666b, type: 2}
-    level: 4
+    level: 15
   - _base: {fileID: 11400000, guid: 8166c53ad83d6a74680af08433f862a3, type: 2}
-    level: 2
+    level: 15
 --- !u!1 &492304675
 GameObject:
   m_ObjectHideFlags: 0
