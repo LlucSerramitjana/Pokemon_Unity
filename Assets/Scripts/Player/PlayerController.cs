@@ -5,13 +5,15 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] string name;
     public float moveSpeed;
     public LayerMask solidObjectLayer;
     public LayerMask grassLayer;
     public LayerMask interactableLayer;
+    public LayerMask fovLayer;
     private bool isMoving;
     private bool changeSkin; //BBDD serveix per cambiar la skin
-
+    public event Action<Collider2D> OnEnteredTrainersView;
     public event Action OnEncountered;
     private Vector2 input;
 
@@ -84,8 +86,14 @@ public class PlayerController : MonoBehaviour
         transform.position = targetPos;
 
         isMoving = false;
-
+        //posar a Handle Update a canvi de CheckForEncounters quan crei l'script de character
+        OnMoveOver();
+        
+    }
+    private void OnMoveOver()
+    {
         CheckForEncounters();
+        CheckIfTrainersView();
     }
 
     private bool IsWalkable(Vector3 targetPos)
@@ -109,5 +117,17 @@ public class PlayerController : MonoBehaviour
                OnEncountered();
            }
         }
+    }
+    private void CheckIfTrainersView()
+    {
+        var collider = Physics2D.OverlapCircle(transform.position, 0.2f, fovLayer);
+        if (collider != null)
+        {
+            animator.SetBool("isMoving", false);
+            OnEnteredTrainersView?.Invoke(collider);
+        }
+    }
+    public string Name{
+        get => name;
     }
 }
