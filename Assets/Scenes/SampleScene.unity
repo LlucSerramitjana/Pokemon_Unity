@@ -13384,8 +13384,13 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
+<<<<<<< Updated upstream
   m_AnchoredPosition: {x: 5.6599, y: -0.68}
   m_SizeDelta: {x: 788.68, y: 124.51}
+=======
+  m_AnchoredPosition: {x: -0.33755, y: -2.585}
+  m_SizeDelta: {x: 776.67, y: 106.85}
+>>>>>>> Stashed changes
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &365029892
 MonoBehaviour:
@@ -19895,10 +19900,14 @@ MonoBehaviour:
     m_Bits: 512
   interactableLayer:
     serializedVersion: 2
+<<<<<<< Updated upstream
     m_Bits: 1024
   fovLayer:
     serializedVersion: 2
     m_Bits: 2048
+=======
+    m_Bits: 0
+>>>>>>> Stashed changes
 --- !u!212 &453772059
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -52,11 +52,11 @@ public class BattleSystem : MonoBehaviour
         enemyUnit.Clear();
         if(!isTrainerBattle)
         {
-            playerUnit.Setup(playerParty.GetHealthyPokemon());
-            enemyUnit.Setup(wildPokemon);
-            dialogBox.SetMoveNames(playerUnit.Pokemon.Moves);
-
-            yield return (dialogBox.TypeDialog("A wild " + enemyUnit.Pokemon.Base.Name + " appeared!"));
+            playerUnit.Setup(playerUnit.Pokemon);
+            enemyUnit.Setup(enemyUnit.Pokemon);
+            yield return (dialogBox.TypeDialog("A wild " + playerUnit.Pokemon.Base.Name + " appeared!"));
+            yield return new WaitForSeconds(1f);
+            ActionSelection();
         }
         else
         {

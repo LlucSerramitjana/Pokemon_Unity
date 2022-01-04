@@ -31,7 +31,7 @@ public class BattleUnit : MonoBehaviour
     }
     public void Setup(Pokemon pokemon)
     {
-        Pokemon = pokemon; //Assigns the pokemon of the player
+        //Assigns the pokemon of the player
         if (isPlayerUnit)
             image.sprite = Pokemon.Base.BackSprite;
         else
