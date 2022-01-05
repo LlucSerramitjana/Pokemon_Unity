@@ -14,12 +14,12 @@ public class BattleHud : MonoBehaviour
         nameText.text = pokemon.Base.Name;
         levelText.text = "Lvl" + pokemon.Level;
         _pokemon = pokemon;
-        float calc = (float)pokemon.HP / pokemon.MaxHP;
+        float calc = (float)pokemon.HP / pokemon.MaxHp;
         hpBar.SetHP(calc);
     }
     public IEnumerator UpdateHP()
     {
-        float calc = (float) _pokemon.HP / _pokemon.MaxHP;
+        float calc = (float) _pokemon.HP / _pokemon.MaxHp;
 
         yield return hpBar.SetHPSmooth(calc);
 
