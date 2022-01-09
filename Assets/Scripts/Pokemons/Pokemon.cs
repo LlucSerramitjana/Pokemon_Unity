@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 [System.Serializable]
 public class Pokemon
@@ -19,8 +21,10 @@ public class Pokemon
     public List<Move> Moves { get; set; }
     public Dictionary<Stat, int> Stats { get; private set; } //Key is the stat and the value is the value of the attack
     public Dictionary<Stat, int> StatsBoost { get; private set; }
+    public Condition Status { get; private set; }
     public Queue<string> StatusChanges { get; private set; } = new Queue<string>();
     public Move CurrentMove { get; set; }
+    public bool HpChanged { get; set; }
 
     public void Init()
     {
@@ -139,19 +143,28 @@ public class Pokemon
         float d = a * move.Base.Power * ((float)attacker.Attack / Defense) + 2;
         int damage = Mathf.FloorToInt(d * modifiers);
 
-        HP -= damage;
-        if (HP <= 0)
-        {
-            HP = 0;
-            damageDetails.Fainted = true;
-        }
+        UpdateHP(damage);
         return damageDetails;
+    }
+    public void UpdateHP(int damage)
+    {
+        HP = Mathf.Clamp(HP - damage,0,MaxHp);
+        HpChanged = true;
+    }
+    public void SetStatus(ConditionID conditionID)
+    {
+        Status = ConditionsDB.Conditions[conditionID];
+        StatusChanges.Enqueue($"{Base.Name} {Status.StartMessage}");
     }
 
     public Move GetRandomMove()
     {
         int r = Random.Range(0, Moves.Count);
         return Moves[r];
+    }
+    public void OnAfterTurn()
+    {
+        Status?.OnAfterTurn?.Invoke(this); //Only invoke if it is not null
     }
     public void OnBattleOver()
     {

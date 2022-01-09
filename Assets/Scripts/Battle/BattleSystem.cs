@@ -52,11 +52,13 @@ public class BattleSystem : MonoBehaviour
         enemyUnit.Clear();
         if(!isTrainerBattle)
         {
-            playerUnit.Setup(playerUnit.Pokemon);
-            enemyUnit.Setup(enemyUnit.Pokemon);
+
+            playerUnit.Setup(playerParty.GetHealthyPokemon());
+            enemyUnit.Setup(wildPokemon);
             yield return (dialogBox.TypeDialog("A wild " + playerUnit.Pokemon.Base.Name + " appeared!"));
             yield return new WaitForSeconds(1f);
             ActionSelection();
+            partyScreen.Init();
         }
         else
         {
@@ -69,12 +71,12 @@ public class BattleSystem : MonoBehaviour
 
             trainerImage.gameObject.SetActive(false);
             enemyUnit.gameObject.SetActive(true);
-            var enemyPokemon = trainerParty.GetHealthyPokemon();
+            Pokemon enemyPokemon = trainerParty.GetHealthyPokemon();
             enemyUnit.Setup(enemyPokemon);
             yield return dialogBox.TypeDialog($"{trainer.Name} send out {enemyPokemon.Base.Name}");
 
             playerUnit.gameObject.SetActive(true);
-            var playerPokemon = playerParty.GetHealthyPokemon();
+            Pokemon playerPokemon = playerParty.GetHealthyPokemon();
             playerUnit.Setup(playerPokemon);
             yield return dialogBox.TypeDialog($"Go {playerPokemon.Base.Name}!");
             dialogBox.SetMoveNames(playerUnit.Pokemon.Moves);
@@ -190,12 +192,18 @@ public class BattleSystem : MonoBehaviour
     IEnumerator RunMoveEffects(Move move, Pokemon source, Pokemon target)
     {
         var effects = move.Base.Effects;
+        //Stat boostinh
         if (effects.Boosts != null)
         {
             if (move.Base.Target == MoveTarget.Self)
                 source.ApplyBoosts(effects.Boosts);
             else
                 target.ApplyBoosts(effects.Boosts);
+        }
+        // Status condition
+        if(effects.Status != ConditionID.none)
+        {
+            target.SetStatus(effects.Status);
         }
 
         yield return ShowStatusChanges(source);
@@ -230,6 +238,20 @@ public class BattleSystem : MonoBehaviour
 
             CheckForBattleOver(targetUnit);
         }
+
+        //Statuses like burn or psn will hurt the pokemon after the turn
+        sourceUnit.Pokemon.OnAfterTurn();
+        yield return ShowStatusChanges(sourceUnit.Pokemon);
+        yield return sourceUnit.Hud.UpdateHP();
+        if (sourceUnit.Pokemon.HP <= 0)
+        {
+            yield return dialogBox.TypeDialog((sourceUnit.Pokemon.Base.Name) + " fainted");
+            sourceUnit.PlayFaintAnimation();
+            yield return new WaitForSeconds(2f);
+
+            CheckForBattleOver(sourceUnit);
+        }
+
     }
 
     /*IEnumerator RunAfterTurn(BattleUnit sourceUnit)
@@ -413,6 +435,7 @@ public class BattleSystem : MonoBehaviour
             yield return new WaitForSeconds(2f);
         }
 
+        
         playerUnit.Setup(newPokemon);
         dialogBox.SetMoveNames(newPokemon.Moves);
         yield return dialogBox.TypeDialog($"Go {newPokemon.Base.Name}!");
