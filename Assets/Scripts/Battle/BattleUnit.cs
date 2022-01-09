@@ -33,14 +33,11 @@ public class BattleUnit : MonoBehaviour
     {
         this.Pokemon = pokemon;
         //Assigns the pokemon of the player
-        if (pokemon != null)
-        {
-            if (isPlayerUnit)
-                image.sprite = pokemon.Base.BackSprite;
-            else
-                image.sprite = pokemon.Base.FrontSprite;
-        }
-        else 
+        
+        if (isPlayerUnit)
+            image.sprite = pokemon.Base.BackSprite;
+        else
+            image.sprite = pokemon.Base.FrontSprite;
 
         hud.SetData(pokemon);
         hud.gameObject.SetActive(true);

@@ -55,7 +55,8 @@ public class BattleSystem : MonoBehaviour
 
             playerUnit.Setup(playerParty.GetHealthyPokemon());
             enemyUnit.Setup(wildPokemon);
-            yield return (dialogBox.TypeDialog("A wild " + playerUnit.Pokemon.Base.Name + " appeared!"));
+            dialogBox.SetMoveNames(playerUnit.Pokemon.Moves);
+            yield return (dialogBox.TypeDialog("A wild " + wildPokemon.Base.Name + " appeared!"));
             yield return new WaitForSeconds(1f);
             ActionSelection();
             partyScreen.Init();
@@ -205,6 +206,11 @@ public class BattleSystem : MonoBehaviour
         {
             target.SetStatus(effects.Status);
         }
+        // Volatile Status Condition
+        if (effects.VolatileStatus != ConditionID.none)
+        {
+            target.SetVolatileStatus(effects.VolatileStatus);
+        }
 
         yield return ShowStatusChanges(source);
         yield return ShowStatusChanges(target);
@@ -212,6 +218,14 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator RunMove(BattleUnit sourceUnit, BattleUnit targetUnit, Move move) //Source attacking, target protecting
     {
+        bool canRunMove = sourceUnit.Pokemon.OnBeforeMove();
+        if (!canRunMove)
+        {
+            yield return ShowStatusChanges(sourceUnit.Pokemon);
+            yield return sourceUnit.Hud.UpdateHP();
+            yield break; //If the pokemon is for example paralyzed and cannot run the move
+        }
+        yield return ShowStatusChanges(sourceUnit.Pokemon);
         move.PP--;
         yield return dialogBox.TypeDialog($"{sourceUnit.Pokemon.Base.Name} used {move.Base.Name}");
         

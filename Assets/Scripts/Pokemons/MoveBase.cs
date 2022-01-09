@@ -44,6 +44,18 @@ public class MoveBase : ScriptableObject
     {
         get { return pp; }
     }
+    public bool IsSpecial
+    {
+        get
+        {
+            if (type == PokemonType.Fire || type == PokemonType.Water || type == PokemonType.Grass || type == PokemonType.Ice)
+            {
+                return true; //special
+            }
+            else
+                return false; //physical
+        }
+    }
     public MoveCategory Category
     {
         get { return category; }
@@ -63,7 +75,7 @@ public class MoveEffects
 {
     [SerializeField] List<StatBoost> boosts;
     [SerializeField] ConditionID status;
-
+    [SerializeField] ConditionID volatileStatus;
     public List<StatBoost> Boosts
     {
         get { return boosts; }
@@ -71,6 +83,10 @@ public class MoveEffects
     public ConditionID Status
     {
         get { return status; }
+    }
+    public ConditionID VolatileStatus
+    {
+        get { return volatileStatus; }
     }
 }
 
