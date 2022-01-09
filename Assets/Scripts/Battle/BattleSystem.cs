@@ -52,7 +52,6 @@ public class BattleSystem : MonoBehaviour
         enemyUnit.Clear();
         if(!isTrainerBattle)
         {
-
             playerUnit.Setup(playerParty.GetHealthyPokemon());
             enemyUnit.Setup(wildPokemon);
             dialogBox.SetMoveNames(playerUnit.Pokemon.Moves);
