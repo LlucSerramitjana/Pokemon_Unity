@@ -8,6 +8,10 @@ public class BattleUnit : MonoBehaviour
 {
     [SerializeField] bool isPlayerUnit; //To know if it is a player or an enemy
     [SerializeField] BattleHud hud;
+    public Pokemon Pokemon { get; set; }
+    Image image;
+    Vector3 originalPos;
+    Color originalColor;
 
     public bool IsPlayerUnit
     {
@@ -18,10 +22,6 @@ public class BattleUnit : MonoBehaviour
     {
         get { return hud; }
     }
-    public Pokemon Pokemon { get; set; }
-    Image image;
-    Vector3 originalPos;
-    Color originalColor;
 
     private void Awake()
     {
@@ -31,11 +31,16 @@ public class BattleUnit : MonoBehaviour
     }
     public void Setup(Pokemon pokemon)
     {
+        this.Pokemon = pokemon;
         //Assigns the pokemon of the player
-        if (isPlayerUnit)
-            image.sprite = Pokemon.Base.BackSprite;
-        else
-            image.sprite = Pokemon.Base.FrontSprite;
+        if (pokemon != null)
+        {
+            if (isPlayerUnit)
+                image.sprite = pokemon.Base.BackSprite;
+            else
+                image.sprite = pokemon.Base.FrontSprite;
+        }
+        else 
 
         hud.SetData(pokemon);
         hud.gameObject.SetActive(true);
