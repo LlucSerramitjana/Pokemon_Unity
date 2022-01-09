@@ -2,15 +2,20 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] string name;
+    [SerializeField] Transform spawnPoint;
+    public int sceneToLoad;
     public float moveSpeed;
     public LayerMask solidObjectLayer;
     public LayerMask grassLayer;
     public LayerMask interactableLayer;
     public LayerMask fovLayer;
+    public LayerMask portalLayer;
     private bool isMoving;
     private bool changeSkin; //BBDD serveix per cambiar la skin
     public event Action<Collider2D> OnEnteredTrainersView;
@@ -94,6 +99,17 @@ public class PlayerController : MonoBehaviour
     {
         CheckForEncounters();
         CheckIfTrainersView();
+        CheckPortal();
+        /*var colliders = Physics2D.OverlapCircleAll(transform.position - new Vector3(0, 0.8f), 0.2f, GameLayers.i.TriggerableLayers);
+        foreach (var collider in colliders)
+        {
+            var triggerable = collider.GetComponent<IPlayerTriggerable>();
+            if (triggerable != null)
+            {
+                triggerable.OnPlayerTriggered(this);
+                break;
+            }
+        }*/
     }
 
     private bool IsWalkable(Vector3 targetPos)
@@ -106,6 +122,7 @@ public class PlayerController : MonoBehaviour
         return true;
     }
 
+
     private void CheckForEncounters()
     {
         if (Physics2D.OverlapCircle(transform.position, 0.2f, grassLayer) != null)
@@ -117,6 +134,22 @@ public class PlayerController : MonoBehaviour
                OnEncountered();
            }
         }
+    }
+    private void CheckPortal()
+    {
+        if (Physics2D.OverlapCircle(transform.position, 0.2f, portalLayer) != null)
+        {
+           Debug.Log("Player entered a portal");
+           animator.SetBool("isMoving", false);
+           StartCoroutine(SwitchScene());
+        }
+    }
+    IEnumerator SwitchScene()
+    {
+
+        yield return SceneManager.LoadSceneAsync(sceneToLoad);
+        sceneToLoad = 0;
+
     }
     private void CheckIfTrainersView()
     {
