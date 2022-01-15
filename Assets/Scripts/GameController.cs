@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GameState { FreeRoam, Battle, Dialog, Cutscene }
+public enum GameState { FreeRoam, Battle, Dialog, Cutscene, Menu }
 
 public class GameController : MonoBehaviour
 {
@@ -13,11 +13,13 @@ public class GameController : MonoBehaviour
     GameState state;
 
     public static GameController Instance { get; private set; }
+    MenuController menuController;
 
     private void Awake()
     {
-        ConditionsDB.Init();
         Instance = this;
+        menuController = GetComponent<MenuController>();
+        ConditionsDB.Init();
     }
     private void Start()
     {
@@ -44,6 +46,11 @@ public class GameController : MonoBehaviour
                 state = GameState.FreeRoam;
             }
         };
+        menuController.onBack += () =>
+         {
+             state = GameState.FreeRoam;
+         };
+        menuController.onMenuSelected += OnMenuSelected;
     }
 
     void StartBattle()
@@ -88,6 +95,11 @@ public class GameController : MonoBehaviour
         if (state == GameState.FreeRoam)
         {
             playerController.HandleUpdate();
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                menuController.OpenMenu();
+                state = GameState.Menu;
+            }
         }
         else if (state == GameState.Battle)
         {
@@ -97,5 +109,31 @@ public class GameController : MonoBehaviour
         {
             DialogManager.Instance.HandleUpdate();
         }
+        else if(state == GameState.Menu)
+        {
+            menuController.HandleUpdate();
+        }
+    }
+    void OnMenuSelected(int selectedItem)
+    {
+        if(selectedItem == 0)
+        {
+            //Pokemon selected
+        }
+        else if (selectedItem == 1)
+        {
+            //Bag selected
+        }
+        else if (selectedItem == 1)
+        {
+            //Save selected
+            //SavingSystem.i.Save("saveSlot1");
+        }
+        else if (selectedItem == 1)
+        {
+            //Load selected 
+            //SavingSystem.i.Load("saveSlot1");
+        }
+        state = GameState.FreeRoam;
     }
 }
