@@ -784,6 +784,7 @@ MonoBehaviour:
   dialogBox: {fileID: 4923303911490055736}
   partyScreen: {fileID: 4923303912686626035}
   trainerImage: {fileID: 4923303912042444002}
+  pokeballSprite: {fileID: 8873951845000116696, guid: 2618b9fcf7ac93c4ca14806af0508030, type: 3}
 --- !u!1 &4923303911729966430
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,7 +895,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.43625003, y: 0.38000003}
   m_AnchorMax: {x: 0.43625003, y: 0.38000003}
-  m_AnchoredPosition: {x: 51, y: 143.65997}
+  m_AnchoredPosition: {x: 51, y: 143.65}
   m_SizeDelta: {x: 800, y: 456.68}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4923303911775736974
@@ -2348,7 +2349,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1796166807
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &4923303912858822785
@@ -2744,6 +2745,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4923303912858822791}
     m_Modifications:
+    - target: {fileID: 225175145610033732, guid: 3832a96d18eb312489a666c3d0555793, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 15.260696
+      objectReference: {fileID: 0}
+    - target: {fileID: 225175147123909002, guid: 3832a96d18eb312489a666c3d0555793, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 41.977997
+      objectReference: {fileID: 0}
     - target: {fileID: 225175147183196791, guid: 3832a96d18eb312489a666c3d0555793, type: 3}
       propertyPath: m_Name
       value: EnemyHud
@@ -2832,6 +2841,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 225175147268398122, guid: 3832a96d18eb312489a666c3d0555793, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 22.800003
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3832a96d18eb312489a666c3d0555793, type: 3}
 --- !u!114 &3310805157841366850 stripped
@@ -2857,6 +2870,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4923303912858822791}
     m_Modifications:
+    - target: {fileID: 225175145610033732, guid: 3832a96d18eb312489a666c3d0555793, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 15.260696
+      objectReference: {fileID: 0}
+    - target: {fileID: 225175147123909002, guid: 3832a96d18eb312489a666c3d0555793, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 41.977997
+      objectReference: {fileID: 0}
     - target: {fileID: 225175147183196791, guid: 3832a96d18eb312489a666c3d0555793, type: 3}
       propertyPath: m_Name
       value: PlayerHud
@@ -2944,6 +2965,14 @@ PrefabInstance:
     - target: {fileID: 225175147183196792, guid: 3832a96d18eb312489a666c3d0555793, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 225175147268398122, guid: 3832a96d18eb312489a666c3d0555793, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 22.800003
+      objectReference: {fileID: 0}
+    - target: {fileID: 2147022428110253725, guid: 3832a96d18eb312489a666c3d0555793, type: 3}
+      propertyPath: m_Layer
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3832a96d18eb312489a666c3d0555793, type: 3}

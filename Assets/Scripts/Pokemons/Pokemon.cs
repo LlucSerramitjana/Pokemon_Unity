@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 using Random = UnityEngine.Random;
 
 [System.Serializable]
@@ -10,6 +11,13 @@ public class Pokemon
 {
     [SerializeField] PokemonBase _base;
     [SerializeField] int level;
+
+    public Pokemon(PokemonBase pBase, int pLevel)
+    {
+        _base = pBase;
+        level = pLevel;
+        Init();
+    }
 
     public PokemonBase Base {
         get { return _base; }
@@ -25,7 +33,7 @@ public class Pokemon
     public int StatusTime { get; set; }
     public Condition VolatileStatus { get; private set; }
     public int VolatileStatusTime { get; set; }
-    public Queue<string> StatusChanges { get; private set; } = new Queue<string>();
+    public Queue<string> StatusChanges { get; private set; }
     public Move CurrentMove { get; set; }
     public bool HpChanged { get; set; }
     public event Action OnStatusChanged;
@@ -49,7 +57,7 @@ public class Pokemon
         ResetStatBoost();
         Status = null;
         VolatileStatus = null;
-        
+        StatusChanges = new Queue<string>();
     }
     void ResetStatBoost()
     {
@@ -59,7 +67,9 @@ public class Pokemon
             {Stat.Defense, 0},
             {Stat.SpAttack, 0},
             {Stat.SpDefense, 0},
-            {Stat.Speed, 0}
+            {Stat.Speed, 0},
+            {Stat.Accuracy, 0},
+            {Stat.Evasion, 0}
         };
     }
 
@@ -186,8 +196,9 @@ public class Pokemon
 
     public Move GetRandomMove()
     {
-        int r = Random.Range(0, Moves.Count);
-        return Moves[r];
+        var movesWithPP = Moves.Where(x => x.PP > 0).ToList();
+        int r = Random.Range(0, movesWithPP.Count);
+        return movesWithPP[r];
     }
     public bool OnBeforeMove()
     {

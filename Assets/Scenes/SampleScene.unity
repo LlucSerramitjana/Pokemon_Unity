@@ -19988,7 +19988,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1796166807
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!1 &519420028
@@ -21633,6 +21633,7 @@ MonoBehaviour:
   dialogBox: {fileID: 1824886492}
   partyScreen: {fileID: 362300439}
   trainerImage: {fileID: 1341576198}
+  pokeballSprite: {fileID: 8873951845000116696, guid: 2618b9fcf7ac93c4ca14806af0508030, type: 3}
 --- !u!1 &1607300199
 GameObject:
   m_ObjectHideFlags: 0
