@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public enum GameState { FreeRoam, Battle, Dialog, Cutscene, Menu }
+public enum GameState { FreeRoam, Battle, Dialog, PartyScreen, Bag, Cutscene, Menu }
 
 public class GameController : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class GameController : MonoBehaviour
     [SerializeField] PlayerController playerController;
     [SerializeField] BattleSystem battleSystem;
     [SerializeField] Camera worldCamera;
+    [SerializeField] PartyScreen partyScreen;
+    [SerializeField] InventoryUI inventoryUI;
     GameState state;
 
     public static GameController Instance { get; private set; }
@@ -20,6 +23,8 @@ public class GameController : MonoBehaviour
         Instance = this;
         menuController = GetComponent<MenuController>();
         ConditionsDB.Init();
+        PokemonDB.Init();
+        MoveDB.Init();
     }
     private void Start()
     {
@@ -109,9 +114,33 @@ public class GameController : MonoBehaviour
         {
             DialogManager.Instance.HandleUpdate();
         }
+        else if (state == GameState.PartyScreen)
+        {
+            Action onSelected = () =>
+            {
+                // TODO: Go to Summary Screen
+            };
+
+            Action onBack = () =>
+            {
+                partyScreen.gameObject.SetActive(false);
+                state = GameState.FreeRoam;
+            };
+
+            partyScreen.HandleUpdate(onSelected, onBack);
+        }
         else if(state == GameState.Menu)
         {
             menuController.HandleUpdate();
+        }
+        else if (state == GameState.Bag)
+        {
+            Action onBack = () =>
+            {
+                inventoryUI.gameObject.SetActive(false);
+                state = GameState.FreeRoam;
+            };
+            inventoryUI.HandleUpdate(onBack);
         }
     }
     void OnMenuSelected(int selectedItem)
@@ -119,20 +148,25 @@ public class GameController : MonoBehaviour
         if(selectedItem == 0)
         {
             //Pokemon selected
+            partyScreen.gameObject.SetActive(true);
+            partyScreen.SetPartyData(playerController.GetComponent<PokemonParty>().Pokemons);
+            state = GameState.PartyScreen;
         }
         else if (selectedItem == 1)
         {
             //Bag selected
+            inventoryUI.gameObject.SetActive(true);
+            state = GameState.Bag;
         }
-        else if (selectedItem == 1)
+        else if (selectedItem == 2)
         {
             //Save selected
-            //SavingSystem.i.Save("saveSlot1");
+            SavingSystem.i.Save("saveSlot1");
         }
-        else if (selectedItem == 1)
+        else if (selectedItem == 3)
         {
             //Load selected 
-            //SavingSystem.i.Load("saveSlot1");
+            SavingSystem.i.Load("saveSlot1");
         }
         state = GameState.FreeRoam;
     }

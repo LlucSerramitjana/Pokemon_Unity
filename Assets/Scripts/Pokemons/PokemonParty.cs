@@ -9,6 +9,7 @@ public class PokemonParty : MonoBehaviour
     public List<Pokemon> Pokemons
     {
         get { return this.pokemons; }
+        set { pokemons = value; }
     }
 
     private void Start()

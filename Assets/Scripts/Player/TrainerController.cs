@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrainerController : MonoBehaviour, Interactable
+public class TrainerController : MonoBehaviour, Interactable, iSavable
 {
     [SerializeField] string name;
     [SerializeField] Sprite sprite;
@@ -10,12 +10,10 @@ public class TrainerController : MonoBehaviour, Interactable
     [SerializeField] Dialog dialog;
     [SerializeField] Dialog dialogAfter;
     public GameObject fovLayer;
+    
     bool battleLost = false;
-    /*Character character;
-    private void Awake()
-    {
-        character = GetComponent<Character>();
-    }*/
+    
+
     public void Interact()
     {
         
@@ -62,5 +60,16 @@ public class TrainerController : MonoBehaviour, Interactable
     }
     public Sprite Sprite{
         get => sprite;
+    }
+    public object CaptureState()
+    {
+        return battleLost;
+    }
+
+    public void RestoreState(object state)
+    {
+        battleLost = (bool)state;
+        if (battleLost)
+            fovLayer.gameObject.SetActive(false);
     }
 }
