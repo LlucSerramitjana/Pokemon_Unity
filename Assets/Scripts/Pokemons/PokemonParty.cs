@@ -9,6 +9,7 @@ public class PokemonParty : MonoBehaviour
     public List<Pokemon> Pokemons
     {
         get { return this.pokemons; }
+        set { pokemons = value; }
     }
 
     private void Start()
@@ -24,5 +25,19 @@ public class PokemonParty : MonoBehaviour
         //If the condition isn't satisfied returns null
         return pokemons.Where(x => x.HP > 0).FirstOrDefault();
  
+    }
+    public bool AddPokemon(Pokemon newPokemon)
+    {
+        if (pokemons.Count < 3)
+        {
+            pokemons.Add(newPokemon);
+            return true;
+        }
+        else
+        {
+            //TO DO: Add to the PC once that's implemented
+            //Choose a pokemon
+            return false;
+        }
     }
 }

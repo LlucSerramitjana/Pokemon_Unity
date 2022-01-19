@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Reflection;
+using System;
 
-public enum GameState { FreeRoam, Battle, Dialog, Cutscene }
+public enum GameState { FreeRoam, Battle, Dialog, PartyScreen, Bag, Cutscene, Menu }
 
 public class GameController : MonoBehaviour
 {
@@ -10,16 +12,41 @@ public class GameController : MonoBehaviour
     [SerializeField] PlayerController playerController;
     [SerializeField] BattleSystem battleSystem;
     [SerializeField] Camera worldCamera;
+    [SerializeField] PartyScreen partyScreen;
+    [SerializeField] InventoryUI inventoryUI;
     GameState state;
 
     public static GameController Instance { get; private set; }
+    MenuController menuController;
+    AndroidJavaObject currentActivity;
+    public string iduser;
+
 
     private void Awake()
     {
         Instance = this;
+        menuController = GetComponent<MenuController>();
+        ConditionsDB.Init();
+        PokemonDB.Init();
+        MoveDB.Init();
     }
     private void Start()
     {
+#if UNITY_ANDROID
+
+            AndroidJavaClass UnityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+            currentActivity = UnityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+
+            AndroidJavaObject intent = currentActivity.Call<AndroidJavaObject>("getIntent");
+            bool hasExtra = intent.Call<bool>("hasExtra", "id");
+
+            if (hasExtra)
+            {
+                //AndroidJavaObject extras = intent.Call<AndroidJavaObject>("getExtras");
+                iduser = intent.Call<String>("getStringExtra", "id");
+            }
+#endif
+
         playerController.OnEncountered += StartBattle;
         battleSystem.OnBattleOver += EndBattle;
         playerController.OnEnteredTrainersView += (Collider2D trainerCollider) => 
@@ -43,6 +70,11 @@ public class GameController : MonoBehaviour
                 state = GameState.FreeRoam;
             }
         };
+        menuController.onBack += () =>
+         {
+             state = GameState.FreeRoam;
+         };
+        menuController.onMenuSelected += OnMenuSelected;
     }
 
     void StartBattle()
@@ -53,7 +85,10 @@ public class GameController : MonoBehaviour
 
         var playerParty = playerController.GetComponent<PokemonParty>();
         var wildPokemon = FindObjectOfType<MapArea>().GetComponent<MapArea>().GetWildPokemon();
-        battleSystem.StartBattle(playerParty, wildPokemon);
+        
+        var wildPokemonCopy = new Pokemon(wildPokemon.Base, wildPokemon.Level);
+        
+        battleSystem.StartBattle(playerParty, wildPokemonCopy);
     }
 
     public void StartTrainerBattle(TrainerController trainer)
@@ -84,6 +119,20 @@ public class GameController : MonoBehaviour
         if (state == GameState.FreeRoam)
         {
             playerController.HandleUpdate();
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                menuController.OpenMenu();
+                state = GameState.Menu;
+            }
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+#if UNITY_ANDROID
+            AndroidJavaClass UnityPlayer = new AndroidJavaClass("dsa.ejercicios_practica.pokemon_android.ProfileActivity");
+            AndroidJavaObject currentActivity = UnityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+            currentActivity.Call("onGameFinish", "83");
+#endif
+                Application.Quit();
+            }
         }
         else if (state == GameState.Battle)
         {
@@ -93,5 +142,60 @@ public class GameController : MonoBehaviour
         {
             DialogManager.Instance.HandleUpdate();
         }
+        else if (state == GameState.PartyScreen)
+        {
+            Action onSelected = () =>
+            {
+                // TODO: Go to Summary Screen
+            };
+
+            Action onBack = () =>
+            {
+                partyScreen.gameObject.SetActive(false);
+                state = GameState.FreeRoam;
+            };
+
+            partyScreen.HandleUpdate(onSelected, onBack);
+        }
+        else if(state == GameState.Menu)
+        {
+            menuController.HandleUpdate();
+        }
+        else if (state == GameState.Bag)
+        {
+            Action onBack = () =>
+            {
+                inventoryUI.gameObject.SetActive(false);
+                state = GameState.FreeRoam;
+            };
+            inventoryUI.HandleUpdate(onBack);
+        }
+    }
+    void OnMenuSelected(int selectedItem)
+    {
+        if(selectedItem == 0)
+        {
+            //Pokemon selected
+            partyScreen.gameObject.SetActive(true);
+            partyScreen.SetPartyData(playerController.GetComponent<PokemonParty>().Pokemons);
+            state = GameState.PartyScreen;
+        }
+        else if (selectedItem == 1)
+        {
+            //Bag selected
+            inventoryUI.gameObject.SetActive(true);
+            state = GameState.Bag;
+        }
+        else if (selectedItem == 2)
+        {
+            //Save selected
+            SavingSystem.i.Save("saveSlot1");
+        }
+        else if (selectedItem == 3)
+        {
+            //Load selected 
+            SavingSystem.i.Load("saveSlot1");
+        }
+        state = GameState.FreeRoam;
     }
 }

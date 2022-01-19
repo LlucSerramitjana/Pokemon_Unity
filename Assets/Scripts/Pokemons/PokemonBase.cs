@@ -22,6 +22,8 @@ public class PokemonBase : ScriptableObject
     [SerializeField] int spAttack;
     [SerializeField] int spDefense;
     [SerializeField] int speed; //We need it if we want to calculate maxHp in the same way that the original game does
+
+    [SerializeField] int catchRate = 255;
     
     //Pokemon stored attacks
     [SerializeField] List<LearnableMove> learnableMoves;
@@ -74,6 +76,8 @@ public class PokemonBase : ScriptableObject
     {
         get { return learnableMoves; }
     }
+    public int CatchRate => catchRate;
+
 }
 
 [System.Serializable]
@@ -109,7 +113,11 @@ public enum Stat
     Defense,
     SpAttack,
     SpDefense,
-    Speed
+    Speed,
+
+    //These 2 are not actual stats, they're used to boost
+    Accuracy,
+    Evasion
 }
 
 public class TypeChart

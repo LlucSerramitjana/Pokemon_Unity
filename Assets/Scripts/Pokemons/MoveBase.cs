@@ -15,9 +15,12 @@ public class MoveBase : ScriptableObject
     [SerializeField] PokemonType type;
     [SerializeField] int power;
     [SerializeField] int accuracy;
+    [SerializeField] bool alwaysHits;
     [SerializeField] int pp; //Number of times a move can be performed
+    [SerializeField] int priority;
     [SerializeField] MoveCategory category;
     [SerializeField] MoveEffects effects;
+    [SerializeField] List<SecondaryEffects> secondaryEffects;
     [SerializeField] MoveTarget target;
 
     public string Name
@@ -44,6 +47,30 @@ public class MoveBase : ScriptableObject
     {
         get { return pp; }
     }
+    public bool AlwaysHits
+    {
+        get { return alwaysHits; }
+    }
+    public int Priority
+    {
+        get { return priority; }
+    }
+    public List<SecondaryEffects> Secondaries
+    {
+        get { return secondaryEffects; }
+    }
+    public bool IsSpecial
+    {
+        get
+        {
+            if (type == PokemonType.Fire || type == PokemonType.Water || type == PokemonType.Grass || type == PokemonType.Ice)
+            {
+                return true; //special
+            }
+            else
+                return false; //physical
+        }
+    }
     public MoveCategory Category
     {
         get { return category; }
@@ -63,7 +90,7 @@ public class MoveEffects
 {
     [SerializeField] List<StatBoost> boosts;
     [SerializeField] ConditionID status;
-
+    [SerializeField] ConditionID volatileStatus;
     public List<StatBoost> Boosts
     {
         get { return boosts; }
@@ -71,6 +98,26 @@ public class MoveEffects
     public ConditionID Status
     {
         get { return status; }
+    }
+    public ConditionID VolatileStatus
+    {
+        get { return volatileStatus; }
+    }
+}
+
+[System.Serializable]
+public class SecondaryEffects : MoveEffects
+{
+    [SerializeField] int chance;
+    [SerializeField] MoveTarget target;
+
+    public int Chance
+    {
+        get { return chance; }
+    }
+    public MoveTarget Target
+    {
+        get { return target; }
     }
 }
 

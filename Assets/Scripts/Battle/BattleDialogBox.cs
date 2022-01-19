@@ -16,7 +16,11 @@ public class BattleDialogBox : MonoBehaviour
 
     [SerializeField] Text ppText;
     [SerializeField] Text typeText;
-    [SerializeField] Color highlightedColor;
+    Color highlightedColor;
+    private void Start()
+    {
+        highlightedColor = GlobalSettings.i.HighlightedColor;
+    }
 
     public void SetDialog(string dialog)
     {
@@ -71,6 +75,10 @@ public class BattleDialogBox : MonoBehaviour
         }
         ppText.text = ("PP " + (move.PP) + "/" + (move.Base.PP));
         typeText.text = move.Base.Type.ToString();
+        if(move.PP == 0)
+            ppText.color = Color.red;
+        else
+            ppText.color = Color.black;
     }
     public void SetMoveNames(List<Move> moves)
     {
