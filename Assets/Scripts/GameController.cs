@@ -1,10 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-<<<<<<< HEAD
 using System.Reflection;
-=======
->>>>>>> a75c61de5febad647ebd46599a49b9b82e10b266
 using System;
 
 public enum GameState { FreeRoam, Battle, Dialog, PartyScreen, Bag, Cutscene, Menu }
@@ -21,12 +18,8 @@ public class GameController : MonoBehaviour
 
     public static GameController Instance { get; private set; }
     MenuController menuController;
-<<<<<<< HEAD
-    AndroidJavaObject currentActivity;
     public string iduser;
 
-=======
->>>>>>> a75c61de5febad647ebd46599a49b9b82e10b266
 
     private void Awake()
     {
@@ -40,8 +33,8 @@ public class GameController : MonoBehaviour
     {
 #if UNITY_ANDROID
 
-            AndroidJavaClass UnityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-            currentActivity = UnityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+            AndroidJavaClass UnityPlayer = new AndroidJavaClass("dsa.ejercicios_practica.pokemon_android.ProfileActivity");
+            AndroidJavaObject currentActivity = UnityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
 
             AndroidJavaObject intent = currentActivity.Call<AndroidJavaObject>("getIntent");
             bool hasExtra = intent.Call<bool>("hasExtra", "id");
@@ -130,7 +123,6 @@ public class GameController : MonoBehaviour
                 menuController.OpenMenu();
                 state = GameState.Menu;
             }
-<<<<<<< HEAD
             if (Input.GetKeyDown(KeyCode.Q))
             {
 #if UNITY_ANDROID
@@ -140,8 +132,6 @@ public class GameController : MonoBehaviour
 #endif
                 Application.Quit();
             }
-=======
->>>>>>> a75c61de5febad647ebd46599a49b9b82e10b266
         }
         else if (state == GameState.Battle)
         {
