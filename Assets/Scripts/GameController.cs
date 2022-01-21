@@ -18,7 +18,18 @@ public class GameController : MonoBehaviour
 
     public static GameController Instance { get; private set; }
     MenuController menuController;
+
+    //Enviat desde Android
     public string iduser;
+    public string charactername;
+    public string firstpokemon;
+    public string object1;
+    public string object2;
+    public string object3;
+
+    //Enviat a Unity
+    public string map;
+    public string experience;
 
 
     private void Awake()
@@ -32,18 +43,56 @@ public class GameController : MonoBehaviour
     private void Start()
     {
 #if UNITY_ANDROID
-
-            AndroidJavaClass UnityPlayer = new AndroidJavaClass("dsa.ejercicios_practica.pokemon_android.ProfileActivity");
+            AndroidJavaClass UnityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
             AndroidJavaObject currentActivity = UnityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
 
             AndroidJavaObject intent = currentActivity.Call<AndroidJavaObject>("getIntent");
-            bool hasExtra = intent.Call<bool>("hasExtra", "id");
+            
+            Debug.Log("Searching if and username");
+
+            iduser = intent.Call<string>("getStringExtra", "id");
+            charactername = intent.Call<string>("getStringExtra", "charactername");
+
+            Debug.Log("Iduser is "+iduser);
+            Debug.Log("Charactername is "+charactername);
+            
+            bool hasExtra = intent.Call<bool>("hasExtra", "pokemon");
 
             if (hasExtra)
             {
-                //AndroidJavaObject extras = intent.Call<AndroidJavaObject>("getExtras");
-                iduser = intent.Call<String>("getStringExtra", "id");
+                Debug.Log("Inside If Pokemon");
+                firstpokemon = intent.Call<string>("getStringExtra", "pokemon");
+                Debug.Log("FirstPokemon is "+firstpokemon);
             }
+
+            hasExtra = intent.Call<bool>("hasExtra", "object1");
+
+            if (hasExtra)
+            {
+                Debug.Log("Inside If Object1");
+                object1 = intent.Call<string>("getStringExtra", "object1");
+                Debug.Log("Object1 is "+object1);
+            }
+
+            hasExtra = intent.Call<bool>("hasExtra", "object2");
+
+            if (hasExtra)
+            {
+                Debug.Log("Inside If Object2");
+                object2 = intent.Call<string>("getStringExtra", "object2");
+                Debug.Log("Object2 is "+object2);
+            }
+
+            hasExtra = intent.Call<bool>("hasExtra", "object3");
+
+            if (hasExtra)
+            {
+                Debug.Log("Inside If Object3");
+                object3 = intent.Call<string>("getStringExtra", "object3");
+                Debug.Log("Object3 is "+object3);
+            }
+
+
 #endif
 
         playerController.OnEncountered += StartBattle;
@@ -126,11 +175,20 @@ public class GameController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Q))
             {
 #if UNITY_ANDROID
-            AndroidJavaClass UnityPlayer = new AndroidJavaClass("dsa.ejercicios_practica.pokemon_android.ProfileActivity");
-            AndroidJavaObject currentActivity = UnityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
-            currentActivity.Call("onGameFinish", "83");
+            AndroidJavaClass UnityPlayer = new AndroidJavaClass("dsa.ejercicios_practica.pokemon_android.IntegrationUnity");
+
+            experience = "27";
+            map="SampleScene";
+            Debug.Log("Before sending information");
+            //UnityPlayer.Call("getExperience", experience);
+            UnityPlayer.CallStatic("getInformationUnity", experience, map, charactername);
+            Debug.Log("Information sent");
+
+            //UnityPlayer = new AndroidJavaClass("dsa.ejercicios_practica.pokemon_android.ProfileActivity");
+            Debug.Log("Before closing game");
+            Application.Quit();
+
 #endif
-                Application.Quit();
             }
         }
         else if (state == GameState.Battle)
