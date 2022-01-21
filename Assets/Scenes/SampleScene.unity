@@ -197,6 +197,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1489193760118860587, guid: 44f892983adda2945b2b280d268329a7, type: 3}
+      propertyPath: sceneToLoad
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1489193760118860587, guid: 44f892983adda2945b2b280d268329a7, type: 3}
+      propertyPath: gymPortalLayer.m_Bits
+      value: 8192
+      objectReference: {fileID: 0}
     - target: {fileID: 1489193760118860589, guid: 44f892983adda2945b2b280d268329a7, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -59662,6 +59670,14 @@ MonoBehaviour:
   worldCamera: {fileID: 1964599546}
   partyScreen: {fileID: 253398397}
   inventoryUI: {fileID: 253398398}
+  iduser: 
+  charactername: 
+  firstpokemon: 
+  object1: 
+  object2: 
+  object3: 
+  map: 
+  experience: 
 --- !u!4 &1989038358
 Transform:
   m_ObjectHideFlags: 0

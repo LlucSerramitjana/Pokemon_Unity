@@ -9,13 +9,14 @@ public class PlayerController : MonoBehaviour, iSavable
 {
     [SerializeField] string name;
     [SerializeField] Transform spawnPoint;
-    public int sceneToLoad;
+    private int sceneToLoad = 0;
     public float moveSpeed;
     public LayerMask solidObjectLayer;
     public LayerMask grassLayer;
     public LayerMask interactableLayer;
     public LayerMask fovLayer;
     public LayerMask portalLayer;
+    public LayerMask gymPortalLayer;
     private bool isMoving;
     private bool changeSkin; //BBDD serveix per cambiar la skin
     public event Action<Collider2D> OnEnteredTrainersView;
@@ -100,6 +101,7 @@ public class PlayerController : MonoBehaviour, iSavable
         CheckForEncounters();
         CheckIfTrainersView();
         CheckPortal();
+        CheckGym();
         /*var colliders = Physics2D.OverlapCircleAll(transform.position - new Vector3(0, 0.8f), 0.2f, GameLayers.i.TriggerableLayers);
         foreach (var collider in colliders)
         {
@@ -146,9 +148,26 @@ public class PlayerController : MonoBehaviour, iSavable
     }
     IEnumerator SwitchScene()
     {
-
+        if((animator.GetFloat("moveY")) >0.0f)
+        {
+            sceneToLoad++;
+        } 
         yield return SceneManager.LoadSceneAsync(sceneToLoad);
-        sceneToLoad = 0;
+    }
+    private void CheckGym()
+    {
+        if (Physics2D.OverlapCircle(transform.position, 0.2f, gymPortalLayer) != null)
+        {
+           Debug.Log("Player entered a portal");
+           animator.SetBool("isMoving", false);
+           StartCoroutine(SwitchScene2());
+        }
+    }
+    IEnumerator SwitchScene2()
+    {
+
+        yield return SceneManager.LoadSceneAsync(2);
+        sceneToLoad = 1;
 
     }
     private void CheckIfTrainersView()
