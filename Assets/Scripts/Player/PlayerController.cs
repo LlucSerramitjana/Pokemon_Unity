@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour, iSavable
     public LayerMask portalLayer;
     public LayerMask gymPortalLayer;
     private bool isMoving;
+    private int skin;
     private bool changeSkin; //BBDD serveix per cambiar la skin
     public event Action<Collider2D> OnEnteredTrainersView;
     public event Action OnEncountered;
@@ -32,14 +33,7 @@ public class PlayerController : MonoBehaviour, iSavable
 
     public void HandleUpdate()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            changeSkin = true;
-        }
-        else
-        {
-            changeSkin = false;
-        }
+        skin = 0;
         if(!isMoving)
         {
             input.x = Input.GetAxisRaw("Horizontal");
@@ -62,7 +56,7 @@ public class PlayerController : MonoBehaviour, iSavable
         }
 
         animator.SetBool("isMoving", isMoving);
-        animator.SetBool("changeSkin", changeSkin);
+        animator.SetInteger("skin", skin);
         if(Input.GetKeyDown(KeyCode.Z))
         {
             Interact();

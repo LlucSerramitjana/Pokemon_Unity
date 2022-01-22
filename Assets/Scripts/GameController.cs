@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour
     public string object1;
     public string object2;
     public string object3;
+    private int avatar;
 
     //Enviat a Unity
     public string map;
@@ -52,9 +53,11 @@ public class GameController : MonoBehaviour
 
             iduser = intent.Call<string>("getStringExtra", "id");
             charactername = intent.Call<string>("getStringExtra", "charactername");
+            avatar = intent.Call<int>("getIntExtra", "avatarname", 0);
 
             Debug.Log("Iduser is "+iduser);
             Debug.Log("Charactername is "+charactername);
+            Debug.Log("Avatar number is " +avatar.ToString());
             
             bool hasExtra = intent.Call<bool>("hasExtra", "pokemon");
 
