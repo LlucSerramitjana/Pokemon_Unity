@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour, iSavable
     public LayerMask fovLayer;
     public LayerMask portalLayer;
     public LayerMask gymPortalLayer;
+    public GameController gameController;
     private bool isMoving;
     private int skin;
     private bool changeSkin; //BBDD serveix per cambiar la skin
@@ -25,15 +26,16 @@ public class PlayerController : MonoBehaviour, iSavable
     private Vector2 input;
 
     private Animator animator;
-
+ 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        gameController = GameObject.FindObjectOfType<GameController>();
     }
 
     public void HandleUpdate()
     {
-        skin = 0;
+        skin = gameController.getAvatar;
         if(!isMoving)
         {
             input.x = Input.GetAxisRaw("Horizontal");

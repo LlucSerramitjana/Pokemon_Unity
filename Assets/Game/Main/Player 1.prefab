@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Miquel
   spawnPoint: {fileID: 0}
-  sceneToLoad: 1
+  gameController: {fileID: 6012742557493234093, guid: 65aec7a1cd88ef74b92fa7b0e92a7917, type: 3}
   moveSpeed: 5
   solidObjectLayer:
     serializedVersion: 2
@@ -119,6 +119,9 @@ MonoBehaviour:
   portalLayer:
     serializedVersion: 2
     m_Bits: 4096
+  gymPortalLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!95 &1489193760118860584
 Animator:
   serializedVersion: 3

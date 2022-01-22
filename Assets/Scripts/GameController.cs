@@ -26,7 +26,7 @@ public class GameController : MonoBehaviour
     public string object1;
     public string object2;
     public string object3;
-    private int avatar;
+    private int skin;
 
     //Enviat a Unity
     public string map;
@@ -53,11 +53,11 @@ public class GameController : MonoBehaviour
 
             iduser = intent.Call<string>("getStringExtra", "id");
             charactername = intent.Call<string>("getStringExtra", "charactername");
-            avatar = intent.Call<int>("getIntExtra", "avatarname", 0);
+            skin = intent.Call<int>("getIntExtra", "avatarname", 0);
 
             Debug.Log("Iduser is "+iduser);
             Debug.Log("Charactername is "+charactername);
-            Debug.Log("Avatar number is " +avatar.ToString());
+            Debug.Log("Avatar number is " +skin.ToString());
             
             bool hasExtra = intent.Call<bool>("hasExtra", "pokemon");
 
@@ -126,6 +126,10 @@ public class GameController : MonoBehaviour
              state = GameState.FreeRoam;
          };
         menuController.onMenuSelected += OnMenuSelected;
+    }
+    public int getAvatar
+    {   
+        get { return skin; }
     }
 
     void StartBattle()
